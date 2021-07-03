@@ -151,3 +151,28 @@ String name = row.getName();
 //后面的如法炮制就可以
 ```
 
+##### 使用常量代替魔法数
+
+总结：使用常量代表一些特殊的数据，比如3.14这种,还有就是多个地方运用
+
+```java
+double potentialEnergy(double mass,double height){
+  return mass * 9.18 * height;
+}
+
+//简化后的
+double potentialEnergy(double mass,double height){
+  return mass * GRAVI_CONSTANT * height;
+}
+
+static final double GRAVI_CONSTANT = 9.18;
+```
+
+------
+
+##### 数据封装
+
+尽量把成员变量变成私有的，然后通过设置和获取的方式对数据进行操作，避免使用public进行访问。
+
+------
+
