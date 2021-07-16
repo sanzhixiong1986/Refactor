@@ -5,3 +5,5 @@
 
 #### [第九章 简化条件表达式](https://github.com/sanzhixiong1986/Refactor/blob/main/README9.md)
 
+#### 第十章 简化函数
+
