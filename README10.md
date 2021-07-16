@@ -234,3 +234,66 @@ protected int usageInRange(int start,int end){
 
 ------
 
+## 以明确函数取代参数
+
+作用：参数当中有可能让这个函数做两件事，优化的办法就用函数直接代替
+
+### 范例
+
+```java
+void setValue(String name,int value){
+  //其中name是一个判断参数
+  if(name.equals("height"))
+    _height = value;
+  	return;
+  if(name.equals("width"))
+    _width = value;
+  	return;
+}
+
+//然后优化成两个函数
+void setHeight(int arg){
+  _height = arg;
+}
+
+void setWidth(int arg){
+  _width = arg;
+}
+```
+
+If,switch的简化
+
+```java
+private Map<String,int> map = new HashMap<>();
+{
+  map.put("height",0);
+  map.put("width",0);
+}
+void setValue(String name,int value){
+  if(!map.containsKey(name)){
+    return;
+  }
+  map.put(name,value);
+}
+```
+
+------
+
+## 10-7 对象的完整性
+
+范例
+
+```java
+int low = daysTempRange().getLow();
+int high = daysTempRange().getHigh();
+withinPlan = plan.withinRange(low.high);
+
+//优化以后
+withinPlan = plan.withinRange(daysTempRange());
+```
+
+1. 减少了函数的参数的个数
+2. 万一以后参数变多了，还不如直接用对象进行操作，更有可读性。
+
+------
+
