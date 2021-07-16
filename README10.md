@@ -167,3 +167,70 @@ void sendAlert(String[] people){
 
 ------
 
+## 令函数携带参数
+
+### 适用：有些函数做的事情差不多，就要提出相同的地方
+
+### 做法：
+
+- 新建一个函数，使用替换先前的重复函数
+- 编译
+- 将调用旧函数的代码改为调用新函数
+- 编译
+- 对所有旧函数重复上面过程
+
+### 范例
+
+```java
+class Employee {
+  void tenPercentRaise(){
+    salary *= 1.1;
+  }
+  
+  void fivePercentRaise(){
+    salary *=1.05;
+  }
+}
+```
+
+新建一个函数共同的地方操作,合并
+
+```java
+void raise(double factor){
+  salary *= (1 + factor);
+}
+```
+
+------
+
+### 复杂的代码提取
+
+```java
+protected Dollars baseCharge(){
+  double result = Math.min(lastUsage(),100) * 0.03;
+  if(lastUsage()>100)
+    result += (Math.min(lastUsage(),200)-100)*0.05;
+  if(lastUsage()>200)
+    result += (lastUsage() - 200) * 0.07;
+  return new Dollars(result);
+}
+```
+
+修改后
+
+```java
+protected Dollars baseCharge(){
+  double result = usageInRange(0,100)*0.03;
+  result += usageInRange(100,200) * 0.05;
+  result += usageInRange(200,Integer.MAX_VALUE) * 0.07;
+  return new Dollars(result);
+}
+
+protected int usageInRange(int start,int end){
+  if (lastUsage() > start) return Math.min(lastUsage(),end) - start;
+  else return 0;
+}
+```
+
+------
+
